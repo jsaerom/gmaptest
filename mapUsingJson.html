@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <script src = "https://maps.googleapis.com/maps/api/js"></script>
+      <script   src="http://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+      <script>
+  $(document).ready(function() {
+    initMap();
+  });
+    //function to check if cursor's long lat is contained within boundaries of a polygon
+        google.maps.Polygon.prototype.Contains = function(latLng)
+        {
+          var j = 0;
+          var oddNodes = false;
+          var x = latLng.lng();
+          var y = latLng.lat();
+          for (var i = 0; i < this.getPath().getLength(); i++) {
+            j++;
+            if (j == this.getPath().getLength()) { j = 0; }
+            if (((this.getPath().getAt(i).lat() < y) &&
+              (this.getPath().getAt(j).lat() >= y) ||
+              (this.getPath().getAt(j).lat() < y) &&
+              (this.getPath().getAt(i).lat() >= y))) {
+                if (this.getPath().getAt(i).lng() +
+                  (y - this.getPath().getAt(i).lat()) / (this.getPath().getAt(j).lat() - this.getPath().getAt(i).lat()) * (this.getPath().getAt(j).lng() - this.getPath().getAt(i).lng()) < x) {
+                    oddNodes = !oddNodes
+                }
+              }
+            }
+          return oddNodes;
+        }
+
+        function initMap() {
+          //generates map
+          var map = new google.maps.Map(document.getElementById('sample'), {
+            center: {lat: 37.09024, lng: -95.712891},
+            zoom:4,
+            mapTypeId:google.maps.MapTypeId.ROADMAP
+          });
+
+          var states = [];
+          //Json file for AK
+          // var alaska = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/AK.geo.json');
+          // map.data.setStyle({
+          //   fillColor: 'green'
+          // });
+          // states.push(alaska);
+          //Json file for AL
+          //  var alabama = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/AL.geo.json');
+          // map.data.setStyle({
+          // fillColor: 'red'
+          // });
+          // states.push(alabama);
+          //Json file for AR
+          var arkansas = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/AR.geo.json');
+          map.data.setStyle({
+            fillColor: 'blue'
+          });
+          states.push(arkansas);
+          //Json file for AZ
+          var arizona = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/AZ.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(arizona);
+          //Json file for CA
+          var california = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/CA.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(california);
+          //Json file for CO
+          var colorado = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/CO.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(colorado);
+          //Json file for CT
+          var connecticut = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/CT.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(connecticut);
+          //Json file for DE
+          var delaware = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/DE.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(delaware);
+          //Json file for FL
+          var florida = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/FL.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(florida);
+          //Json file for GA
+          var georgia = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/GA.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(georgia);
+          //Json file for HI
+          var hawaii = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/HI.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(hawaii);
+          //Json file for IA
+          var iowa = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/IA.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(iowa);
+          //Json file for ID
+          var idaho = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/ID.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(idaho);
+          //Json file for IL
+          var illinois = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/IL.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(illinois);
+          //Json file for IN
+          var indiana = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/IN.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(indiana);
+          //Json file for KS
+          var kansas = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/KS.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(kansas);
+          //Json file for KY
+          var kentucky = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/KY.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(kentucky);
+          //Json file for LA
+          var louisiana = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/LA.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(louisiana);
+          //Json file for MA
+          var massachusetts = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/MA.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(massachusetts);
+          //Json file for MD
+          var maryland = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/MD.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(maryland);
+          //Json file for ME
+          var maine = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/ME.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(maine);
+          //Json file for MI
+          var michigan = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/MI.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(michigan);
+          //Json file for MN
+          var minnesota = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/MN.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(minnesota);
+          //Json file for MO
+          var missouri = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/MO.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(missouri);
+          //Json file for MS
+          var mississippi = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/MS.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(mississippi);
+          //Json file for MT
+          var montana = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/MT.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(montana);
+          //Json file for NC
+          var northcarolina = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/NC.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(northcarolina);
+          //Json file for ND
+          var northdakota = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/ND.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(northdakota);
+          //Json file for NE
+          var nebraska = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/NE.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(nebraska);
+          //Json file for NH
+          var newhampshire = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/NH.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(newhampshire);
+          //Json file for NJ
+          var newjersey = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/NJ.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(newjersey);
+          //Json file for NM
+          var newmexico = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/NM.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(newmexico);
+          //Json file for NV
+          var nevada = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/NV.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(nevada);
+          //Json file for NY
+          var newyork = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/NY.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(newyork);
+          //Json file for OH
+          var ohio = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/OH.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(ohio);
+          //Json file for OK
+          var oklahoma = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/OK.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(oklahoma);
+          //Json file for OR
+          var oregon = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/OR.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(oregon);
+          //Json file for PA
+          var pennsylvania = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/PA.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(pennsylvania);
+          //Json file for RI
+          var rhodeisland = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/RI.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(rhodeisland);
+          //Json file for SC
+          var southcarolina = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/SC.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(southcarolina);
+          //Json file for SD
+          var southdakota = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/SD.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(southdakota);
+          //Json file for TN
+          var tennessee = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/TN.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(tennessee);
+          //Json file for TX
+          var texas = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/TX.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(texas);
+          //Json file for UT
+          var utah = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/UT.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(utah);
+          //Json file for VA
+          var virginia = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/VA.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(virginia);
+          //Json file for VT
+          var vermont = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/VT.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(vermont);
+          //Json file for WA
+          var washington = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/WA.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(washington);
+          //Json file for WI
+          var wisconsin = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/WI.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(wisconsin);
+          //Json file for WV
+          var westvirginia = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/WV.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(westvirginia);
+          //Json file for WY
+          var wyoming = map.data.loadGeoJson('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/WY.geo.json');
+          map.data.setStyle({
+            fillColor: 'red'
+          });
+          states.push(wyoming);
+
+        var testArray = [];
+        var triangleCoords = [
+          {lat: 25.774, lng: -80.190},
+          {lat: 18.466, lng: -66.118},
+          {lat: 32.321, lng: -64.757}
+        ];
+
+        // Construct the polygon.
+        var bermudaTriangle = new google.maps.Polygon({
+          paths: triangleCoords,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35
+        });
+
+testArray.push(bermudaTriangle);
+
+        var alaskaCoords = [
+ {lat: 70.0187, lng: -141.0205},
+ {lat: 70.1292, lng: -141.7291},
+ {lat: 70.4515, lng: -144.8163},
+ {lat: 70.7471, lng: -148.4583},
+ {lat: 70.7923, lng: -151.1609},
+ {lat: 71.1470, lng: -152.6221},
+ {lat: 71.1185, lng: -153.9954},
+ {lat: 71.4307, lng: -154.8853},
+ {lat: 71.5232, lng: -156.7529},
+ {lat: 71.2796, lng: -157.9449},
+ {lat: 71.2249, lng: -159.6313},
+ {lat: 70.6363, lng: -161.8671},
+ {lat: 70.0843, lng: -163.5809},
+ {lat: 69.3028, lng: -165.2399},
+ {lat: 69.1782, lng: -166.8768},
+ {lat: 68.3344, lng: -168.0414},
+ {lat: 67.6844, lng: -165.9155},
+ {lat: 67.2933, lng: -164.6082},
+ {lat: 66.7789, lng: -164.0149},
+ {lat: 66.5810, lng: -165.7507},
+ {lat: 66.2867, lng: -167.5745},
+ {lat: 66.0269, lng: -168.9862},
+ {lat: 65.4970, lng: -168.9478},
+ {lat: 65.0420, lng: -167.4756},
+ {lat: 64.3922, lng: -167.0142},
+ {lat: 64.0554, lng: -165.7343},
+ {lat: 64.0193, lng: -163.2294},
+ {lat: 63.9615, lng: -162.1143},
+ {lat: 63.6877, lng: -163.6029},
+ {lat: 63.4530, lng: -165.3717},
+ {lat: 62.4133, lng: -166.3715},
+ {lat: 61.6534, lng: -166.9867},
+ {lat: 60.8556, lng: -166.4429},
+ {lat: 60.5357, lng: -167.8381},
+ {lat: 59.5482, lng: -167.7118},
+ {lat: 59.4115, lng: -165.8002},
+ {lat: 59.3696, lng: -164.5972},
+ {lat: 59.1168, lng: -162.8558},
+ {lat: 58.1185, lng: -162.5427},
+ {lat: 58.1359, lng: -160.6421},
+ {lat: 58.0285, lng: -159.5050},
+ {lat: 57.6336, lng: -158.8953},
+ {lat: 56.9090, lng: -159.9060},
+ {lat: 56.3926, lng: -160.6531},
+ {lat: 56.2342, lng: -161.8835},
+ {lat: 55.7240, lng: -162.9822},
+ {lat: 55.2478, lng: -164.3994},
+ {lat: 54.7753, lng: -165.3168},
+ {lat: 54.1463, lng: -167.1075},
+ {lat: 53.5632, lng: -168.5852},
+ {lat: 53.1402, lng: -169.9146},
+ {lat: 52.5964, lng: -169.5959},
+ {lat: 52.9089, lng: -168.2227},
+ {lat: 54.2139, lng: -162.7734},
+ {lat: 54.6786, lng: -159.1452},
+ {lat: 55.6567, lng: -155.4634},
+ {lat: 57.3510, lng: -152.1400},
+ {lat: 59.2209, lng: -150.8203},
+ {lat: 59.7695, lng: -147.4461},
+ {lat: 60.3521, lng: -145.9850},
+ {lat: 59.8917, lng: -144.1544},
+ {lat: 59.8172, lng: -141.6811},
+ {lat: 59.5225, lng: -140.5124},
+ {lat: 59.0292, lng: -138.8548},
+ {lat: 57.9032, lng: -136.8526},
+ {lat: 56.9157, lng: -136.0725},
+ {lat: 56.1555, lng: -134.9794},
+ {lat: 55.3237, lng: -134.0057},
+ {lat: 54.6341, lng: -133.6418},
+ {lat: 54.7135, lng: -130.6261},
+ {lat: 55.2869, lng: -129.9930},
+ {lat: 55.9869, lng: -130.0108},
+ {lat: 56.1057, lng: -130.1083},
+ {lat: 56.6086, lng: -131.5887},
+ {lat: 57.8404, lng: -132.8755},
+ {lat: 58.7276, lng: -133.8423},
+ {lat: 59.3108, lng: -134.9121},
+ {lat: 59.8020, lng: -135.4724},
+ {lat: 59.6039, lng: -136.3445},
+ {lat: 59.1619, lng: -136.8251},
+ {lat: 59.2441, lng: -137.6079},
+ {lat: 60.0902, lng: -139.2119},
+ {lat: 60.3575, lng: -139.0938},
+ {lat: 60.1866, lng: -140.0056},
+ {lat: 60.3059, lng: -140.9999},
+ {lat: 70.0187, lng: -141.0205}
+];
+
+var alaska = new google.maps.Polygon({
+  paths: alaskaCoords,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#FF0000',
+  fillOpacity: 0.35
+});
+
+testArray.push(alaska);
+
+          google.maps.event.addListener(map, 'click', function(event){
+            for (var i = 0; i < testArray.length; i++){
+            if(testArray[i].Contains(event.latLng)) {
+              testArray[i].setMap(map);
+            }
+            else{
+              testArray[i].setMap(null);
+            }
+          }
+          })
+
+        }
+
+
+
+      </script>
+   </head>
+   <body>
+      <div id = "sample" style = "width:1000px; height:1000px;"></div>
+   </body>
+</html>
