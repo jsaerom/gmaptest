@@ -4061,16 +4061,19 @@ var wyoming = new google.maps.Polygon({
 });
 states.push(wyoming);
 
+var selectedStates = [];
 //event listener to create overlay if user clicks on state
           google.maps.event.addListener(map, 'click', function(event){
             for (var i = 0; i < states.length; i++){
             if(states[i].Contains(event.latLng)) {
               states[i].setMap(map);
+              selectedStates.push(states[i]);
             }
             else{
               states[i].setMap(null);
             }
           }
+          console.log(selectedStates);
           })
         }
       </script>
